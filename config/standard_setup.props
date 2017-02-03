@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<!-- This file contains settings that are meant to be shared across all windows machines, not customizable by developers as such -->
+<!-- This file stems from a project specific context, and as you look at it you will see arbitrary locations and variable names; once put on github we'll gradually generalize it. -->
+
+<!-- This props file requires a few paths to have been set up prior to inclusion. Let's validate with explicit messages: -->
+  <Target Name="ValidatePaths">  
+    <Error Condition="!exists('$(RootLocalPath)')" Text="RootLocalPath='$(RootLocalPath)' not found" />
+    <Error Condition="!exists('$(RootLocalLibraryPath)')" Text="RootLocalLibraryPath='$(RootLocalLibraryPath)' not found" />
+    <Error Condition="!exists('$(RootLocalIncludePath)')" Text="RootLocalIncludePath='$(RootLocalIncludePath)' not found" />
+  </Target>
+  <PropertyGroup Label="UserMacros">
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <RelativeOutDir>$(Platform)/$(Configuration)/</RelativeOutDir>
+    <OutDir>$(SolutionDir)/$(RelativeOutDir)</OutDir>
+    <!-- Let's set up compilation options that are typically dependent only on whether we are in debug or release mode. -->
+    <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Debug'">true</UseDebugLibraries>
+    <UseDebugLibraries Condition="'$(Configuration)'=='Release'">false</UseDebugLibraries>
+    <InlineFuncExpansionSetting Condition="'$(Configuration)'=='Debug'">Disabled</InlineFuncExpansionSetting>
+    <InlineFuncExpansionSetting Condition="'$(Configuration)'=='Release'">AnySuitable</InlineFuncExpansionSetting>
+    <OptimizationSetting Condition="'$(Configuration)'=='Debug'">Disabled</OptimizationSetting>
+    <OptimizationSetting Condition="'$(Configuration)'=='Release'">MaxSpeed</OptimizationSetting>	
+    <Optimization>$(OptimizationSetting)</Optimization>	
+    <WholeProgramOptimization Condition="'$(Configuration)'=='Debug'">false</WholeProgramOptimization>
+    <WholeProgramOptimization Condition="'$(Configuration)'=='Release'">true</WholeProgramOptimization>	
+    <CmakeIntDir >$(Configuration)/$(Platform)</CmakeIntDir>
+    <GenerateManifest>true</GenerateManifest>
+	
+	<!-- Variables directly related to the architecture, 
+    which we will use to build architecture dependent paths -->
+    <MachineArch Condition="'$(Platform)'=='Win32'">X86</MachineArch>
+    <MachineArch Condition="'$(Platform)'=='x64'">x64</MachineArch>
+    <MachineBits Condition="'$(Platform)'=='Win32'">32</MachineBits>
+    <MachineBits Condition="'$(Platform)'=='x64'">64</MachineBits>
+ 
+    <!-- A variable for include paths; 
+    we favor the inclusion of header files with directory, e.g. netcdf/netcdf.h, so RootLocalIncludePath should 
+    go in before the full include directory paths -->
+	<LocalIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</LocalIncludePaths>
+	
+	<!-- Paths to the shared libraries and '.lib' files used by the VCPP compiler -->
+	<!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
+    <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
+    <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
+
+    <BoostLibPath>$(RootLocalPath)/boost/lib/$(MachineBits)</BoostLibPath>
+    <NetcdfLibPath>$(RootLocalPath)/netCDF/$(MachineBits)/lib</NetcdfLibPath>
+    <JsoncppLibPath>$(RootLocalPath)/jsoncpp/lib/$(MachineBits)</JsoncppLibPath>
+    <YamlcppLibPath>$(RootLocalPath)/yaml-cpp/lib/$(MachineBits)</YamlcppLibPath>
+    <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
+    <VisualLeakDetectorLibPath>$(VisualLeakDetectorPath)/lib/Win$(MachineBits)</VisualLeakDetectorLibPath>
+
+
+    <LocalLibraryPaths>$(BoostLibPath);$(NetcdfLibPath);$(JsoncppLibPath);$(YamlcppLibPath);$(OtherLibPath)</LocalLibraryPaths>
+    
+    <!-- 
+	In order to avoid having to modify the system PATH, we can use the LocalDebuggerEnvironment macro variable
+	Using msbuild property functions to create backslashed files
+	https://msdn.microsoft.com/en-us/library/dd633440(v=vs.120).aspx
+	and http://stackoverflow.com/a/1251198
+	-->
+	<RootLibPathDOS Condition="exists('$(RootLibPath)')">$([System.IO.Path]::GetFullPath('$(RootLibPath.Replace("/","\\"))'))</RootLibPathDOS>
+	<OtherLibPathDOS Condition="exists('$(OtherLibPath)')">$([System.IO.Path]::GetFullPath('$(OtherLibPath.Replace("/","\\"))'))</OtherLibPathDOS>
+	<BoostLibPathDOS Condition="exists('$(BoostLibPath)')">$([System.IO.Path]::GetFullPath('$(BoostLibPath.Replace("/","\\"))'))</BoostLibPathDOS>
+	<NetcdfLibPathDOS Condition="exists('$(NetcdfLibPath)')">$([System.IO.Path]::GetFullPath('$(NetcdfLibPath.Replace("/","\\"))'))</NetcdfLibPathDOS>
+	<JsoncppLibPathDOS Condition="exists('$(JsoncppLibPath)')">$([System.IO.Path]::GetFullPath('$(JsoncppLibPath.Replace("/","\\"))'))</JsoncppLibPathDOS>
+	<YamlcppLibPathDOS Condition="exists('$(YamlcppLibPath)')">$([System.IO.Path]::GetFullPath('$(YamlcppLibPath.Replace("/","\\"))'))</YamlcppLibPathDOS>
+
+	<!-- 
+	Note that setting LocalDebuggerEnvironment here means we rely on the user-specific vcxproj stuff in the debugger section to have:
+	Merge Environments ticked
+	and "Inherit from parent or project defaults" in the local debugger env section.
+	-->
+	<LocalDebuggerEnvironment>PATH=$(BoostLibPathDOS);$(NetcdfLibPathDOS);$(YamlcppLibPathDOS);$(OtherLibPathDOS);$(JsoncppLibPathDOS)</LocalDebuggerEnvironment>
+	<!-- Potentially included here? -->
+    <!-- <PlatformToolset>v120</PlatformToolset> -->    
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="BoostLibPath">
+      <Value>$(BoostLibPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="LocalDebuggerEnvironmentCommand">
+      <Value>$(LocalDebuggerEnvironment)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="JsoncppLibPath">
+      <Value>$(JsoncppLibPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="YamlcppLibPath">
+      <Value>$(YamlcppLibPath)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>  
+  <!-- Default compiler settings -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AssemblerListingLocation>./$(Configuration)/$(Platform)</AssemblerListingLocation>
+      <BasicRuntimeChecks Condition="'$(Configuration)'=='Debug'">EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat Condition="'$(Configuration)'=='Debug'">ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>$(InlineFuncExpansionSetting)</InlineFunctionExpansion>
+      <Optimization>$(OptimizationSetting)</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Debug'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)'=='Release'">MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking Condition="'$(Configuration)'=='Debug'">false</FunctionLevelLinking>
+      <FunctionLevelLinking Condition="'$(Configuration)'=='Release'">true</FunctionLevelLinking>
+      <IntrinsicFunctions Condition="'$(Configuration)'=='Debug'">false</IntrinsicFunctions>
+      <IntrinsicFunctions Condition="'$(Configuration)'=='Release'">true</IntrinsicFunctions>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Release'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <AdditionalOptions>"-D_SCL_SECURE_NO_WARNINGS" %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Debug'">_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)'=='Release'">NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <!-- Default linker settings -->
+    <Link>
+      <AdditionalOptions Condition="'$(Configuration)'=='Debug'"> /machine:$(MachineArch) /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)'=='Release'"> /machine:$(MachineArch) %(AdditionalOptions)</AdditionalOptions>
+<!--       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies> -->
+      <AdditionalDependencies>kernel32.lib</AdditionalDependencies>
+      <GenerateDebugInformation Condition="'$(Configuration)'=='Debug'">true</GenerateDebugInformation>
+      <GenerateDebugInformation Condition="'$(Configuration)'=='Release'">false</GenerateDebugInformation>
+      <OptimizeReferences Condition="'$(Configuration)'=='Debug'">false</OptimizeReferences>
+      <OptimizeReferences Condition="'$(Configuration)'=='Release'">true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+ </Project>

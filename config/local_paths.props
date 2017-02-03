@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+-->
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <RootLocalPath>C:/local/</RootLocalPath>    
+    
+    <!-- Project specific paths -->
+    <!-- These next three variables are used to compile the R swift package; you may not need it -->
+    <RInstallPath>C:/PROGRA~1/R/R-32~1.2/</RInstallPath>
+    <RcppPkgPath>C:/RLibDev/Rcpp/</RcppPkgPath>
+    <!-- Unfortunately need to use absolute paths to reference libswift; with relative paths 
+	R CMD INSTALL swift will work, but R CMD build swift will not because it makes a temporary copy. -->
+    <SwiftSrcPath>C:/src/csiro/stash/per202/swift/</SwiftSrcPath>
+    <VisualLeakDetectorPath>C:/bin/VLD/</VisualLeakDetectorPath>
+    
+    
+    <!-- the root paths to the include and compiled shared libraries are derived -->
+    <RootLocalIncludePath>$(RootLocalPath)/include/</RootLocalIncludePath>
+    <RootLocalLibraryPath>$(RootLocalPath)/libs/</RootLocalLibraryPath>
+
+  </PropertyGroup>
+</Project>
