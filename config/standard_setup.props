@@ -5,6 +5,7 @@
 
 <!-- This props file requires a few paths to have been set up prior to inclusion. Let's validate with explicit messages: -->
   <Target Name="ValidatePaths">  
+    <!-- <Error Text="PriorIncludePaths='$(PriorIncludePaths)'" /> -->
     <Error Condition="!exists('$(RootLocalPath)')" Text="RootLocalPath='$(RootLocalPath)' not found" />
     <Error Condition="!exists('$(RootLocalLibraryPath)')" Text="RootLocalLibraryPath='$(RootLocalLibraryPath)' not found" />
     <Error Condition="!exists('$(RootLocalIncludePath)')" Text="RootLocalIncludePath='$(RootLocalIncludePath)' not found" />
@@ -38,23 +39,20 @@
     <!-- A variable for include paths; 
     we favor the inclusion of header files with directory, e.g. netcdf/netcdf.h, so RootLocalIncludePath should 
     go in before the full include directory paths -->
-	<LocalIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</LocalIncludePaths>
+    
+	<PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>    
+	<AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
+	<LocalIncludePaths Condition="'$(PriorIncludePaths)'==''">$(AddedIncludePaths)</LocalIncludePaths>
+	<LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(AddedIncludePaths);$(PriorIncludePaths)</LocalIncludePaths>
 	
-	<!-- Paths to the shared libraries and '.lib' files used by the VCPP compiler -->
+	<!-- Paths to the shared libraries (.dll) and '.lib' files used by the VCPP compiler -->
+    <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
+    <LocalLibraryPaths>$(OtherLibPath)</LocalLibraryPaths>
 	<!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
     <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
     <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
-
-    <BoostLibPath>$(RootLocalPath)/boost/lib/$(MachineBits)</BoostLibPath>
-    <NetcdfLibPath>$(RootLocalPath)/netCDF/$(MachineBits)/lib</NetcdfLibPath>
-    <JsoncppLibPath>$(RootLocalPath)/jsoncpp/lib/$(MachineBits)</JsoncppLibPath>
-    <YamlcppLibPath>$(RootLocalPath)/yaml-cpp/lib/$(MachineBits)</YamlcppLibPath>
-    <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
     <VisualLeakDetectorLibPath>$(VisualLeakDetectorPath)/lib/Win$(MachineBits)</VisualLeakDetectorLibPath>
 
-
-    <LocalLibraryPaths>$(BoostLibPath);$(NetcdfLibPath);$(JsoncppLibPath);$(YamlcppLibPath);$(OtherLibPath)</LocalLibraryPaths>
-    
     <!-- 
 	In order to avoid having to modify the system PATH, we can use the LocalDebuggerEnvironment macro variable
 	Using msbuild property functions to create backslashed files
@@ -63,35 +61,19 @@
 	-->
 	<RootLibPathDOS Condition="exists('$(RootLibPath)')">$([System.IO.Path]::GetFullPath('$(RootLibPath.Replace("/","\\"))'))</RootLibPathDOS>
 	<OtherLibPathDOS Condition="exists('$(OtherLibPath)')">$([System.IO.Path]::GetFullPath('$(OtherLibPath.Replace("/","\\"))'))</OtherLibPathDOS>
-	<BoostLibPathDOS Condition="exists('$(BoostLibPath)')">$([System.IO.Path]::GetFullPath('$(BoostLibPath.Replace("/","\\"))'))</BoostLibPathDOS>
-	<NetcdfLibPathDOS Condition="exists('$(NetcdfLibPath)')">$([System.IO.Path]::GetFullPath('$(NetcdfLibPath.Replace("/","\\"))'))</NetcdfLibPathDOS>
-	<JsoncppLibPathDOS Condition="exists('$(JsoncppLibPath)')">$([System.IO.Path]::GetFullPath('$(JsoncppLibPath.Replace("/","\\"))'))</JsoncppLibPathDOS>
-	<YamlcppLibPathDOS Condition="exists('$(YamlcppLibPath)')">$([System.IO.Path]::GetFullPath('$(YamlcppLibPath.Replace("/","\\"))'))</YamlcppLibPathDOS>
 
 	<!-- 
 	Note that setting LocalDebuggerEnvironment here means we rely on the user-specific vcxproj stuff in the debugger section to have:
 	Merge Environments ticked
 	and "Inherit from parent or project defaults" in the local debugger env section.
 	-->
-	<LocalDebuggerEnvironment>PATH=$(BoostLibPathDOS);$(NetcdfLibPathDOS);$(YamlcppLibPathDOS);$(OtherLibPathDOS);$(JsoncppLibPathDOS)</LocalDebuggerEnvironment>
+	<LocalDebuggerEnvironment>PATH=$(OtherLibPathDOS)</LocalDebuggerEnvironment>
 	<!-- Potentially included here? -->
     <!-- <PlatformToolset>v120</PlatformToolset> -->    
   </PropertyGroup>
   <ItemGroup>
-    <BuildMacro Include="BoostLibPath">
-      <Value>$(BoostLibPath)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
     <BuildMacro Include="LocalDebuggerEnvironmentCommand">
       <Value>$(LocalDebuggerEnvironment)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
-    <BuildMacro Include="JsoncppLibPath">
-      <Value>$(JsoncppLibPath)</Value>
-      <EnvironmentVariable>true</EnvironmentVariable>
-    </BuildMacro>
-    <BuildMacro Include="YamlcppLibPath">
-      <Value>$(YamlcppLibPath)</Value>
       <EnvironmentVariable>true</EnvironmentVariable>
     </BuildMacro>
   </ItemGroup>  

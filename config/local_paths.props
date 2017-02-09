@@ -3,21 +3,22 @@
 -->
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
-    <RootLocalPath>C:/local/</RootLocalPath>    
-    
+    <!-- The root path where you should have put the header files and binary libraries -->
+    <RootLocalPath>C:/local</RootLocalPath>
+    <!-- the root paths to the include and compiled shared libraries are derived -->
+    <RootLocalIncludePath>$(RootLocalPath)/include</RootLocalIncludePath>
+    <RootLocalLibraryPath>$(RootLocalPath)/libs</RootLocalLibraryPath>
+
+
     <!-- Project specific paths -->
+    <!-- Thereafter are mostly legacy variables - will be refactored later -->
+    
     <!-- These next three variables are used to compile the R swift package; you may not need it -->
     <RInstallPath>C:/PROGRA~1/R/R-32~1.2/</RInstallPath>
-    <RcppPkgPath>C:/RLibDev/Rcpp/</RcppPkgPath>
-    <!-- Unfortunately need to use absolute paths to reference libswift; with relative paths 
+    <!-- <RcppPkgPath>C:/RLibDev/Rcpp/</RcppPkgPath> -->
+    <!-- Unfortunately we need to use absolute paths to reference libswift; with relative paths 
 	R CMD INSTALL swift will work, but R CMD build swift will not because it makes a temporary copy. -->
-    <SwiftSrcPath>C:/src/csiro/stash/per202/swift/</SwiftSrcPath>
+    <SwiftSrcPath>C:/path/to/your/fork/of/swift/</SwiftSrcPath>
     <VisualLeakDetectorPath>C:/bin/VLD/</VisualLeakDetectorPath>
-    
-    
-    <!-- the root paths to the include and compiled shared libraries are derived -->
-    <RootLocalIncludePath>$(RootLocalPath)/include/</RootLocalIncludePath>
-    <RootLocalLibraryPath>$(RootLocalPath)/libs/</RootLocalLibraryPath>
-
   </PropertyGroup>
 </Project>
