@@ -48,6 +48,12 @@
 	<!-- Paths to the shared libraries (.dll) and '.lib' files used by the VCPP compiler -->
     <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
     <LocalLibraryPaths>$(OtherLibPath)</LocalLibraryPaths>
+
+	<PriorLibraryPaths>$(LocalLibraryPaths)</PriorLibraryPaths>    
+	<AddedLibraryPaths>$(AddedLocalLibraryPath)/$(MachineBits)/</AddedLibraryPaths>
+	<LocalLibraryPaths Condition="'$(PriorLibraryPaths)'==''">$(AddedLibraryPaths)</LocalLibraryPaths>
+	<LocalLibraryPaths Condition="'$(PriorLibraryPaths)'!=''">$(AddedLibraryPaths);$(PriorLibraryPaths)</LocalLibraryPaths>
+
 	<!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
     <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
     <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>

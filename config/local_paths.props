@@ -9,6 +9,7 @@
     <RootLocalIncludePath>$(RootLocalPath)/include</RootLocalIncludePath>
     <RootLocalLibraryPath>$(RootLocalPath)/libs</RootLocalLibraryPath>
 
+    <AddedLocalLibraryPath>c:/localdev/libs</AddedLocalLibraryPath>
 
     <!-- Project specific paths -->
     <!-- Thereafter are mostly legacy variables - will be refactored later -->
