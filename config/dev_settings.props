@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--A .props file that is meant to have paths/definitions afferent to codebases in their 
+  developement phase, so  that we can switch relatively easily between compiling against 
+  developement or stable versions.-->
+  <PropertyGroup Label="UserMacros">
+    <RcppPkgPath>C:/RLibDev/Rcpp</RcppPkgPath>
+    <SfslSrcPath>C:/src/csiro/stash/per202/numerical-sl-cpp</SfslSrcPath>    
+    <!--Initialize the LocalIncludePaths macro with paths to developement headers, so that they
+    appear before stable ones, if any.-->
+    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include</LocalIncludePaths>    
+  </PropertyGroup>
+</Project>

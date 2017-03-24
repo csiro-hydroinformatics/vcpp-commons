@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+-->
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <!-- Project specific paths -->
+    <!-- Thereafter are mostly legacy variables - will be refactored later -->
+    
+    <!-- These next three variables are used to compile the R swift package; you may not need it -->
+    <RInstallPath>C:/PROGRA~1/R/R-33~1.3/</RInstallPath>
+    <!-- <RcppPkgPath>C:/RLibDev/Rcpp/</RcppPkgPath> -->
+    <!-- Unfortunately we need to use absolute paths to reference libswift; with relative paths 
+	R CMD INSTALL swift will work, but R CMD build swift will not because it makes a temporary copy. -->
+    <SwiftSrcPath>C:/path/to/your/fork/of/swift/</SwiftSrcPath>
+    <VisualLeakDetectorPath>C:/bin/VLD/</VisualLeakDetectorPath>
+  </PropertyGroup>
+</Project>

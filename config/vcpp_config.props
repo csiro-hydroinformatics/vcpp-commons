@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="DevelopmentContextDefinitions">
+    <Import Project="$(USERPROFILE)\dev_settings.props" Condition="exists('$(USERPROFILE)\dev_settings.props')" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="./local_paths.props" Condition="exists('./local_paths.props')"/>
+    <Import Project="./project_specific.props" Condition="exists('./project_specific.props')"/>
     <!-- You may include some project specific property sheet -->
     <!-- <Import Project="$(USERPROFILE)\My Documents\some_local_project.props" Condition="exists('$(USERPROFILE)\My Documents\some_local_project.props')" /> -->
     <Import Project="./standard_setup.props" Condition="exists('./standard_setup.props')"/>
