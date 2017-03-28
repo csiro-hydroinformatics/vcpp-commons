@@ -5,9 +5,38 @@
   developement or stable versions.-->
   <PropertyGroup Label="UserMacros">
     <RcppPkgPath>C:/RLibDev/Rcpp</RcppPkgPath>
-    <SfslSrcPath>C:/src/csiro/stash/per202/numerical-sl-cpp</SfslSrcPath>    
+    <SfslSrcPath>C:/src/csiro/stash/per202/numerical-sl-cpp</SfslSrcPath>
+    <CcppInteropSrcPath>C:/src/github_jm/rcpp-interop-commons</CcppInteropSrcPath>
     <!--Initialize the LocalIncludePaths macro with paths to developement headers, so that they
     appear before stable ones, if any.-->
-    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include</LocalIncludePaths>    
+    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(CcppInteropSrcPath)/include;C:/src/github_jm/moirai/include;C:/src/csiro/stash/per202/datatypes/include</LocalIncludePaths>
+
+    <!--You may predefine LocalLibraryPaths here, before it is appended to, but should be as a last resort.-->
+    <!--<LocalLibraryPaths>c:/path/to/build/output/Release/x64</LocalLibraryPaths>-->
+
+    <!--Properties in a PropertyGroup are evaluated first, so we cannot 
+create evaluation-time properties based on the content of an itemgroup. See
+  https://msdn.microsoft.com/en-us/library/dd997067.aspx#Property%20and%20Item%20Evaluation%20Order
+  -->
+    <BuildOutputPath_1>C:/src/csiro/stash/per202/datatypes/Solutions</BuildOutputPath_1>
+    <!--<BuildOutputPath_2></BuildOutputPath_2>-->
+    <!--<BuildOutputPath_3></BuildOutputPath_3>-->
+    <!--<BuildOutputPath_4></BuildOutputPath_4>
+    <BuildOutputPath_5></BuildOutputPath_5>
+    <BuildOutputPath_6></BuildOutputPath_6>
+    <BuildOutputPath_7></BuildOutputPath_7>
+    <BuildOutputPath_8></BuildOutputPath_8>
+    <BuildOutputPath_9></BuildOutputPath_9>-->
   </PropertyGroup>
+  <!--<ItemGroup>
+    <SrcOutLocation Include="datatypes">
+      <BuildOutPath>C:/src/csiro/stash/per202/datatypes/Solutions</BuildOutPath>
+    </SrcOutLocation >
+    <SrcOutLocation Include="YoYo">
+      <BuildOutPath></BuildOutPath>
+    </SrcOutLocation >
+  </ItemGroup>-->
+  <!--<ItemGroup>
+    <SrcOutLocation Include="C:/src/csiro/stash/per202/datatypes/Solutions;C:/src/csiro/stash/per202/YoYo/Solutions"/>
+  </ItemGroup>-->
 </Project>

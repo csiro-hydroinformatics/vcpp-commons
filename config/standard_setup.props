@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" 
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 <!-- This file contains settings that are meant to be shared across all windows machines, not customizable by developers as such -->
 <!-- This file stems from a project specific context, and as you look at it you will see arbitrary locations and variable names; once put on github we'll gradually generalize it. -->
 
 <!-- This props file requires a few paths to have been set up prior to inclusion. Let's validate with explicit messages: -->
-  <Target Name="ValidatePaths">  
+  <Target Name="ValidatePaths" BeforeTargets="Compile">  
     <!-- <Error Text="PriorIncludePaths='$(PriorIncludePaths)'" /> -->
     <Error Condition="!exists('$(RootLocalPath)')" Text="RootLocalPath='$(RootLocalPath)' not found" />
     <Error Condition="!exists('$(RootLocalLibraryPath)')" Text="RootLocalLibraryPath='$(RootLocalLibraryPath)' not found" />
     <Error Condition="!exists('$(RootLocalIncludePath)')" Text="RootLocalIncludePath='$(RootLocalIncludePath)' not found" />
   </Target>
+
+  <PropertyGroup Label="ConfigOutdir">
+    <RelativeOutDir>$(Platform)/$(Configuration)/</RelativeOutDir>    
+  </PropertyGroup>
+  <!--Trying to use iterations of lists (ItemGroup); seems to work if called with msbuild /t 
+  but then how to call the execution of this thing before further definitions of LocalLibraryPaths-->
+<!--Properties in a PropertyGroup are evaluated first, so we cannot 
+create evaluation-time properties based on the content of an itemgroup. See
+  https://msdn.microsoft.com/en-us/library/dd997067.aspx#Property%20and%20Item%20Evaluation%20Order
+  -->
+  <!--<Target Name="SourceBuildOutputPaths" Inputs="@SrcOutLocation" Outputs="%(SrcOutLocation.Identity)">
+    <Message Text="%(SrcOutLocation.BuildOutPath)/$(RelativeOutDir)" />
+    <PropertyGroup Label="SetSrcDerivedBuildDirectories">
+      <SrcDevLibraryPathArch Condition="('$(RootLocalDevLibraryPath)'!='')">%(SrcOutLocation.BuildOutPath)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+      <LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+      <LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+    </PropertyGroup>
+  </Target>-->
+  <!--It is called Temporary but it may be the only possible solution... Yuck...-->
+  <PropertyGroup Label="TemporaryWorkaroundSourceBuildOutputPaths">
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_1)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_1)'!='')">$(BuildOutputPath_1)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_2)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_2)'!='')">$(BuildOutputPath_2)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_3)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_3)'!='')">$(BuildOutputPath_3)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+    <!--etc. if you need more paths to append.-->
+  </PropertyGroup>
   <PropertyGroup Label="UserMacros">
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <RelativeOutDir>$(Platform)/$(Configuration)/</RelativeOutDir>
     <OutDir>$(SolutionDir)/$(RelativeOutDir)</OutDir>
     <!-- Let's set up compilation options that are typically dependent only on whether we are in debug or release mode. -->
     <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
@@ -46,18 +83,24 @@
 	<LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(AddedIncludePaths);$(PriorIncludePaths)</LocalIncludePaths>
 	
 	<!-- Paths to the shared libraries (.dll) and '.lib' files used by the VCPP compiler -->
-    <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
-    <LocalLibraryPaths>$(OtherLibPath)</LocalLibraryPaths>
 
-	<PriorLibraryPaths>$(LocalLibraryPaths)</PriorLibraryPaths>    
-	<AddedLibraryPaths>$(AddedLocalLibraryPath)/$(MachineBits)/</AddedLibraryPaths>
-	<LocalLibraryPaths Condition="'$(PriorLibraryPaths)'==''">$(AddedLibraryPaths)</LocalLibraryPaths>
-	<LocalLibraryPaths Condition="'$(PriorLibraryPaths)'!=''">$(AddedLibraryPaths);$(PriorLibraryPaths)</LocalLibraryPaths>
+  <!--At this point LocalLibraryPaths should be empty, but we cater for the case where it has been preset.-->
+  <!--There may be a c:\local\devlibs to add:-->
+  <LocalDevLibraryPathArch Condition="('$(RootLocalDevLibraryPath)'!='')">$(RootLocalDevLibraryPath)/$(MachineBits)/</LocalDevLibraryPathArch>
+  <LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalDevLibraryPathArch)</LocalLibraryPaths>
+	<LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalDevLibraryPathArch)</LocalLibraryPaths>
 
-	<!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
-    <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
-    <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
-    <VisualLeakDetectorLibPath>$(VisualLeakDetectorPath)/lib/Win$(MachineBits)</VisualLeakDetectorLibPath>
+  <!--There may (should) be a c:\local\libs to add:-->
+  <LocalLibraryPathArch Condition="('$(RootLocalLibraryPath)'!='')">$(RootLocalLibraryPath)/$(MachineBits)/</LocalLibraryPathArch>
+  <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalLibraryPathArch)</LocalLibraryPaths>
+  <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalLibraryPathArch)</LocalLibraryPaths>
+   <!--Legacy name...-->
+  <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
+    
+  <!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
+  <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
+  <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
+  <VisualLeakDetectorLibPath>$(VisualLeakDetectorPath)/lib/Win$(MachineBits)</VisualLeakDetectorLibPath>
 
     <!-- 
 	In order to avoid having to modify the system PATH, we can use the LocalDebuggerEnvironment macro variable
@@ -124,4 +167,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
+  <Target Name="PrintLocalLibraryPaths" DependsOnTargets="SourceBuildOutputPaths">
+    <Message Text="LocalLibraryPaths=$(LocalLibraryPaths)" />
+  </Target>
  </Project>

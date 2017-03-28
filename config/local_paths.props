@@ -8,6 +8,6 @@
     <!-- the root paths to the include and compiled shared libraries are derived -->
     <RootLocalIncludePath>$(RootLocalPath)/include</RootLocalIncludePath>
     <RootLocalLibraryPath>$(RootLocalPath)/libs</RootLocalLibraryPath>
-    <AddedLocalLibraryPath>C:/localdev/libs</AddedLocalLibraryPath>
+    <RootLocalDevLibraryPath>C:/localdev/libs</RootLocalDevLibraryPath>
   </PropertyGroup>
 </Project>
