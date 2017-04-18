@@ -46,6 +46,36 @@ create evaluation-time properties based on the content of an itemgroup. See
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_3)'!='')">$(BuildOutputPath_3)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_4)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_4)'!='')">$(BuildOutputPath_4)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_5)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_5)'!='')">$(BuildOutputPath_5)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_6)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_6)'!='')">$(BuildOutputPath_6)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_7)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_7)'!='')">$(BuildOutputPath_7)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_8)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_8)'!='')">$(BuildOutputPath_8)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_9)'=='')"></SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_9)'!='')">$(BuildOutputPath_9)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
+	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
     <!--etc. if you need more paths to append.-->
   </PropertyGroup>
   <PropertyGroup Label="UserMacros">
@@ -80,7 +110,7 @@ create evaluation-time properties based on the content of an itemgroup. See
 	<PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>    
 	<AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
 	<LocalIncludePaths Condition="'$(PriorIncludePaths)'==''">$(AddedIncludePaths)</LocalIncludePaths>
-	<LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(AddedIncludePaths);$(PriorIncludePaths)</LocalIncludePaths>
+	<LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(PriorIncludePaths);$(AddedIncludePaths)</LocalIncludePaths>
 	
 	<!-- Paths to the shared libraries (.dll) and '.lib' files used by the VCPP compiler -->
 
