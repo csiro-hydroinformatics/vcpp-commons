@@ -3,40 +3,53 @@
   <!--A .props file that is meant to have paths/definitions afferent to codebases in their 
   developement phase, so  that we can switch relatively easily between compiling against 
   developement or stable versions.-->
-  <PropertyGroup Label="UserMacros">
-    <RcppPkgPath>C:/RLibDev/Rcpp</RcppPkgPath>
-    <SfslSrcPath>C:/src/csiro/stash/per202/numerical-sl-cpp</SfslSrcPath>
-    <CcppInteropSrcPath>C:/src/github_jm/rcpp-interop-commons</CcppInteropSrcPath>
+  <PropertyGroup>
+    <!--DependenciesType is a way to switch context in terms of the dependencies against which to compile or link.-->
+    <DependenciesType Condition="'$(DependenciesType)'==''">Stable</DependenciesType>
+  </PropertyGroup>
+  <!--if you wish to compile against the stable versions of the header files and DLLs:-->
+  <PropertyGroup Condition="'$(DependenciesType)'=='Stable'">
+    <LocalIncludePaths></LocalIncludePaths>
+  </PropertyGroup>
+  <!--if you wish to co-develop your project and its dependencies: -->
+  <PropertyGroup Condition="'$(DependenciesType)'=='Source'">
+    <GitHubJm>C:/src/github_jm</GitHubJm>
+    <CcppInteropSrcPath>$(GitHubJm)/rcpp-interop-commons</CcppInteropSrcPath>
+    <CorporateSrcPath>C:/src/corporationname/stash</CorporateSrcPath>
+    <SfslSrcPath>$(CorporateSrcPath)/numerical-sl-cpp</SfslSrcPath>
     <!--Initialize the LocalIncludePaths macro with paths to developement headers, so that they
     appear before stable ones, if any.-->
-    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(CcppInteropSrcPath)/include;C:/src/github_jm/moirai/include;C:/src/csiro/stash/per202/datatypes/include</LocalIncludePaths>
+    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(CcppInteropSrcPath)/include;$(GitHubJm)/moirai/include;$(GitHubJm)/wila/include;$(CorporateSrcPath)/datatypes/include;$(CorporateSrcPath)/rpp-cpp/include;$(GitHubJm)/yaml-cpp/include;$(GitHubJm)/jsoncpp/include</LocalIncludePaths>
 
     <!--You may predefine LocalLibraryPaths here, before it is appended to, but should be as a last resort.-->
     <!--<LocalLibraryPaths>c:/path/to/build/output/Release/x64</LocalLibraryPaths>-->
-
+    
     <!--Properties in a PropertyGroup are evaluated first, so we cannot 
 create evaluation-time properties based on the content of an itemgroup. See
   https://msdn.microsoft.com/en-us/library/dd997067.aspx#Property%20and%20Item%20Evaluation%20Order
   -->
-    <BuildOutputPath_1>C:/src/csiro/stash/per202/datatypes/Solutions</BuildOutputPath_1>
-    <!--<BuildOutputPath_2></BuildOutputPath_2>-->
-    <!--<BuildOutputPath_3></BuildOutputPath_3>-->
-    <!--<BuildOutputPath_4></BuildOutputPath_4>
+    <!--As a workaround we allow for up to 9 additional root folders to look into for build outputs of dependency libraries:-->
+    <BuildOutputPath_1>$(CorporateSrcPath)/datatypes/Solutions</BuildOutputPath_1>
+    <BuildOutputPath_2>$(GitHubJm)/jsoncpp/solution</BuildOutputPath_2>
+    <BuildOutputPath_3>$(GitHubJm)/yaml-cpp/vsproj</BuildOutputPath_3>
+    <BuildOutputPath_4>$(GitHubJm)/moirai/tests</BuildOutputPath_4>
+    <!--
     <BuildOutputPath_5></BuildOutputPath_5>
     <BuildOutputPath_6></BuildOutputPath_6>
     <BuildOutputPath_7></BuildOutputPath_7>
     <BuildOutputPath_8></BuildOutputPath_8>
-    <BuildOutputPath_9></BuildOutputPath_9>-->
+    <BuildOutputPath_9></BuildOutputPath_9>
+    -->
   </PropertyGroup>
   <!--<ItemGroup>
     <SrcOutLocation Include="datatypes">
-      <BuildOutPath>C:/src/csiro/stash/per202/datatypes/Solutions</BuildOutPath>
+      <BuildOutPath>C:/src/corporationname/stash/per202/datatypes/Solutions</BuildOutPath>
     </SrcOutLocation >
     <SrcOutLocation Include="YoYo">
       <BuildOutPath></BuildOutPath>
     </SrcOutLocation >
   </ItemGroup>-->
   <!--<ItemGroup>
-    <SrcOutLocation Include="C:/src/csiro/stash/per202/datatypes/Solutions;C:/src/csiro/stash/per202/YoYo/Solutions"/>
+    <SrcOutLocation Include="C:/src/corporationname/stash/per202/datatypes/Solutions;C:/src/corporationname/stash/per202/YoYo/Solutions"/>
   </ItemGroup>-->
 </Project>
