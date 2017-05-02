@@ -33,47 +33,47 @@ create evaluation-time properties based on the content of an itemgroup. See
   <PropertyGroup Label="TemporaryWorkaroundSourceBuildOutputPaths">
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_1)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_1)'!='')">$(BuildOutputPath_1)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_1)'!='')">$(BuildOutputPath_1)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_2)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_2)'!='')">$(BuildOutputPath_2)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_2)'!='')">$(BuildOutputPath_2)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_3)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_3)'!='')">$(BuildOutputPath_3)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_3)'!='')">$(BuildOutputPath_3)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_4)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_4)'!='')">$(BuildOutputPath_4)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_4)'!='')">$(BuildOutputPath_4)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_5)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_5)'!='')">$(BuildOutputPath_5)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_5)'!='')">$(BuildOutputPath_5)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_6)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_6)'!='')">$(BuildOutputPath_6)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_6)'!='')">$(BuildOutputPath_6)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_7)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_7)'!='')">$(BuildOutputPath_7)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_7)'!='')">$(BuildOutputPath_7)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_8)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_8)'!='')">$(BuildOutputPath_8)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_8)'!='')">$(BuildOutputPath_8)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 
     <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_9)'=='')"></SrcDevLibraryPathArch>
-    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_9)'!='')">$(BuildOutputPath_9)/$(RelativeOutDir)/</SrcDevLibraryPathArch>
+    <SrcDevLibraryPathArch Condition="('$(BuildOutputPath_9)'!='')">$(BuildOutputPath_9)/$(RelativeOutDir)</SrcDevLibraryPathArch>
     <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'=='')">$(SrcDevLibraryPathArch)</LocalLibraryPaths>
 	  <LocalLibraryPaths Condition="('$(SrcDevLibraryPathArch)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(SrcDevLibraryPathArch)</LocalLibraryPaths>
     <!--etc. if you need more paths to append.-->
@@ -124,9 +124,7 @@ create evaluation-time properties based on the content of an itemgroup. See
   <LocalLibraryPathArch Condition="('$(RootLocalLibraryPath)'!='')">$(RootLocalLibraryPath)/$(MachineBits)/</LocalLibraryPathArch>
   <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalLibraryPathArch)</LocalLibraryPaths>
   <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalLibraryPathArch)</LocalLibraryPaths>
-   <!--Legacy name...-->
-  <OtherLibPath>$(RootLocalLibraryPath)/$(MachineBits)/</OtherLibPath>
-    
+
   <!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
   <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
   <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
@@ -139,17 +137,24 @@ create evaluation-time properties based on the content of an itemgroup. See
 	and http://stackoverflow.com/a/1251198
 	-->
 	<RootLibPathDOS Condition="exists('$(RootLibPath)')">$([System.IO.Path]::GetFullPath('$(RootLibPath.Replace("/","\\"))'))</RootLibPathDOS>
-	<OtherLibPathDOS Condition="exists('$(OtherLibPath)')">$([System.IO.Path]::GetFullPath('$(OtherLibPath.Replace("/","\\"))'))</OtherLibPathDOS>
+  <LocalDevLibraryPathArchDOS Condition="exists('$(LocalDevLibraryPathArch)')">$([System.IO.Path]::GetFullPath('$(LocalDevLibraryPathArch.Replace("/","\\"))'))</LocalDevLibraryPathArchDOS>
+  <LocalLibraryPathArchDOS Condition="exists('$(LocalLibraryPathArch)')">$([System.IO.Path]::GetFullPath('$(LocalLibraryPathArch.Replace("/","\\"))'))</LocalLibraryPathArchDOS>
 
-	<!-- 
+
+    <!-- 
 	Note that setting LocalDebuggerEnvironment here means we rely on the user-specific vcxproj stuff in the debugger section to have:
 	Merge Environments ticked
 	and "Inherit from parent or project defaults" in the local debugger env section.
 	-->
-	<LocalDebuggerEnvironment>PATH=$(OtherLibPathDOS)</LocalDebuggerEnvironment>
+  <OtherLibPathDOS Condition="('$(LocalDevLibraryPathArchDOS)'!='')">$(LocalDevLibraryPathArchDOS)</OtherLibPathDOS>
+  <OtherLibPathDOS Condition="('$(LocalLibraryPathArchDOS)'!='') and ('$(LocalDevLibraryPathArchDOS)'=='')">$(LocalLibraryPathArchDOS)</OtherLibPathDOS>
+  <OtherLibPathDOS Condition="('$(LocalLibraryPathArchDOS)'!='') and ('$(LocalDevLibraryPathArchDOS)'!='')">$(LocalDevLibraryPathArchDOS);$(LocalLibraryPathArchDOS)</OtherLibPathDOS>
+
+    <LocalDebuggerEnvironment>PATH=$(OtherLibPathDOS)</LocalDebuggerEnvironment>
 	<!-- Potentially included here? -->
     <!-- <PlatformToolset>v120</PlatformToolset> -->    
-  </PropertyGroup>
+  
+</PropertyGroup>
   <ItemGroup>
     <BuildMacro Include="LocalDebuggerEnvironmentCommand">
       <Value>$(LocalDebuggerEnvironment)</Value>
