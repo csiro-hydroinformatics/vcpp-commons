@@ -107,54 +107,53 @@ create evaluation-time properties based on the content of an itemgroup. See
     we favor the inclusion of header files with directory, e.g. netcdf/netcdf.h, so RootLocalIncludePath should 
     go in before the full include directory paths -->
     
-	<PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>    
-	<AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
-	<LocalIncludePaths Condition="'$(PriorIncludePaths)'==''">$(AddedIncludePaths)</LocalIncludePaths>
-	<LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(PriorIncludePaths);$(AddedIncludePaths)</LocalIncludePaths>
-	
-	<!-- Paths to the shared libraries (.dll) and '.lib' files used by the VCPP compiler -->
+    <PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>    
+    <AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
+    <LocalIncludePaths Condition="'$(PriorIncludePaths)'==''">$(AddedIncludePaths)</LocalIncludePaths>
+    <LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(PriorIncludePaths);$(AddedIncludePaths)</LocalIncludePaths>
+
+    <!-- Paths to the shared libraries (.dll) and '.lib' files used by the VCPP compiler -->
 
   <!--At this point LocalLibraryPaths should be empty, but we cater for the case where it has been preset.-->
-  <!--There may be a c:\local\devlibs to add:-->
-  <LocalDevLibraryPathArch Condition="('$(RootLocalDevLibraryPath)'!='')">$(RootLocalDevLibraryPath)/$(MachineBits)/</LocalDevLibraryPathArch>
-  <LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalDevLibraryPathArch)</LocalLibraryPaths>
-	<LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalDevLibraryPathArch)</LocalLibraryPaths>
+    <!--There may be a c:\local\devlibs to add:-->
+    <LocalDevLibraryPathArch Condition="('$(RootLocalDevLibraryPath)'!='')">$(RootLocalDevLibraryPath)/$(MachineBits)/</LocalDevLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalDevLibraryPathArch)</LocalLibraryPaths>
+    <LocalLibraryPaths Condition="('$(RootLocalDevLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalDevLibraryPathArch)</LocalLibraryPaths>
 
-  <!--There may (should) be a c:\local\libs to add:-->
-  <LocalLibraryPathArch Condition="('$(RootLocalLibraryPath)'!='')">$(RootLocalLibraryPath)/$(MachineBits)/</LocalLibraryPathArch>
-  <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalLibraryPathArch)</LocalLibraryPaths>
-  <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalLibraryPathArch)</LocalLibraryPaths>
+    <!--There may (should) be a c:\local\libs to add:-->
+    <LocalLibraryPathArch Condition="('$(RootLocalLibraryPath)'!='')">$(RootLocalLibraryPath)/$(MachineBits)/</LocalLibraryPathArch>
+    <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'=='')">$(LocalLibraryPathArch)</LocalLibraryPaths>
+    <LocalLibraryPaths Condition="('$(RootLocalLibraryPath)'!='') and ('$(LocalLibraryPaths)'!='')">$(LocalLibraryPaths);$(LocalLibraryPathArch)</LocalLibraryPaths>
 
-  <!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
-  <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
-  <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
-  <VisualLeakDetectorLibPath>$(VisualLeakDetectorPath)/lib/Win$(MachineBits)</VisualLeakDetectorLibPath>
-
-    <!-- 
-	In order to avoid having to modify the system PATH, we can use the LocalDebuggerEnvironment macro variable
-	Using msbuild property functions to create backslashed files
-	https://msdn.microsoft.com/en-us/library/dd633440(v=vs.120).aspx
-	and http://stackoverflow.com/a/1251198
-	-->
-	<RootLibPathDOS Condition="exists('$(RootLibPath)')">$([System.IO.Path]::GetFullPath('$(RootLibPath.Replace("/","\\"))'))</RootLibPathDOS>
-  <LocalDevLibraryPathArchDOS Condition="exists('$(LocalDevLibraryPathArch)')">$([System.IO.Path]::GetFullPath('$(LocalDevLibraryPathArch.Replace("/","\\"))'))</LocalDevLibraryPathArchDOS>
-  <LocalLibraryPathArchDOS Condition="exists('$(LocalLibraryPathArch)')">$([System.IO.Path]::GetFullPath('$(LocalLibraryPathArch.Replace("/","\\"))'))</LocalLibraryPathArchDOS>
-
+    <!-- for R we will tap directly into the installed path rather than require it to be under RootLocalPath. Pragmatic. -->
+    <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='Win32'">$(RInstallPath)/bin/i386</RLibPath>
+    <RLibPath Condition="exists('$(RInstallPath)') and '$(Platform)'=='x64'">$(RInstallPath)/bin/x64</RLibPath>
+    <VisualLeakDetectorLibPath>$(VisualLeakDetectorPath)/lib/Win$(MachineBits)</VisualLeakDetectorLibPath>
 
     <!-- 
-	Note that setting LocalDebuggerEnvironment here means we rely on the user-specific vcxproj stuff in the debugger section to have:
-	Merge Environments ticked
-	and "Inherit from parent or project defaults" in the local debugger env section.
-	-->
-  <OtherLibPathDOS Condition="('$(LocalDevLibraryPathArchDOS)'!='')">$(LocalDevLibraryPathArchDOS)</OtherLibPathDOS>
-  <OtherLibPathDOS Condition="('$(LocalLibraryPathArchDOS)'!='') and ('$(LocalDevLibraryPathArchDOS)'=='')">$(LocalLibraryPathArchDOS)</OtherLibPathDOS>
-  <OtherLibPathDOS Condition="('$(LocalLibraryPathArchDOS)'!='') and ('$(LocalDevLibraryPathArchDOS)'!='')">$(LocalDevLibraryPathArchDOS);$(LocalLibraryPathArchDOS)</OtherLibPathDOS>
+    In order to avoid having to modify the system PATH, we can use the LocalDebuggerEnvironment macro variable
+    Using msbuild property functions to create backslashed files
+    https://msdn.microsoft.com/en-us/library/dd633440(v=vs.120).aspx
+    and http://stackoverflow.com/a/1251198
+    -->
+    <RootLibPathDOS Condition="exists('$(RootLibPath)')">$([System.IO.Path]::GetFullPath('$(RootLibPath.Replace("/","\\"))'))</RootLibPathDOS>
+    <LocalDevLibraryPathArchDOS Condition="exists('$(LocalDevLibraryPathArch)')">$([System.IO.Path]::GetFullPath('$(LocalDevLibraryPathArch.Replace("/","\\"))'))</LocalDevLibraryPathArchDOS>
+    <LocalLibraryPathArchDOS Condition="exists('$(LocalLibraryPathArch)')">$([System.IO.Path]::GetFullPath('$(LocalLibraryPathArch.Replace("/","\\"))'))</LocalLibraryPathArchDOS>
+
+
+    <!-- 
+    Note that setting LocalDebuggerEnvironment here means we rely on the user-specific vcxproj stuff in the debugger section to have:
+    Merge Environments ticked
+    and "Inherit from parent or project defaults" in the local debugger env section.
+    -->
+    <OtherLibPathDOS Condition="('$(LocalDevLibraryPathArchDOS)'!='')">$(LocalDevLibraryPathArchDOS)</OtherLibPathDOS>
+    <OtherLibPathDOS Condition="('$(LocalLibraryPathArchDOS)'!='') and ('$(LocalDevLibraryPathArchDOS)'=='')">$(LocalLibraryPathArchDOS)</OtherLibPathDOS>
+    <OtherLibPathDOS Condition="('$(LocalLibraryPathArchDOS)'!='') and ('$(LocalDevLibraryPathArchDOS)'!='')">$(LocalDevLibraryPathArchDOS);$(LocalLibraryPathArchDOS)</OtherLibPathDOS>
 
     <LocalDebuggerEnvironment>PATH=$(OtherLibPathDOS)</LocalDebuggerEnvironment>
-	<!-- Potentially included here? -->
+    <!-- Potentially included here? -->
     <!-- <PlatformToolset>v120</PlatformToolset> -->    
-  
-</PropertyGroup>
+  </PropertyGroup>
   <ItemGroup>
     <BuildMacro Include="LocalDebuggerEnvironmentCommand">
       <Value>$(LocalDebuggerEnvironment)</Value>
