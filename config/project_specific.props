@@ -9,7 +9,7 @@
     <!--<RcppPkgPath>C:/Users/per202/Documents/R/win-library/3.4/Rcpp</RcppPkgPath>-->
     <RcppPkgPath>C:/RLibDev/Rcpp</RcppPkgPath>
     <!--c:\PROGRA~1\R>dir /x /p-->
-    <RInstallPath>C:/PROGRA~1/R/R-34~1.4/</RInstallPath>
+    <RInstallPath>C:/PROGRA~1/R/R-36~1.1/</RInstallPath>
     <VisualLeakDetectorPath>C:/bin/VLD/</VisualLeakDetectorPath>
   </PropertyGroup>
 </Project>

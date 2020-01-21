@@ -15,11 +15,11 @@
   <PropertyGroup Condition="'$(DependenciesType)'=='Source'">
     <GitHubJm>C:/src/github_jm</GitHubJm>
     <CcppInteropSrcPath>$(GitHubJm)/rcpp-interop-commons</CcppInteropSrcPath>
-    <CorporateSrcPath>C:/src/corporationname/stash</CorporateSrcPath>
+    <CorporateSrcPath Condition="'$(CorporateSrcPath)'==''">C:/src/csiro/stash</CorporateSrcPath>
     <SfslSrcPath>$(CorporateSrcPath)/numerical-sl-cpp</SfslSrcPath>
     <!--Initialize the LocalIncludePaths macro with paths to developement headers, so that they
     appear before stable ones, if any.-->
-    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(CcppInteropSrcPath)/include;$(GitHubJm)/moirai/include;$(GitHubJm)/wila/include;$(CorporateSrcPath)/datatypes/include;$(CorporateSrcPath)/rpp-cpp/include;$(GitHubJm)/yaml-cpp/include;$(GitHubJm)/jsoncpp/include</LocalIncludePaths>
+    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(CcppInteropSrcPath)/include;$(GitHubJm)/moirai/include;$(GitHubJm)/wila/include;$(CorporateSrcPath)/datatypes/include;$(CorporateSrcPath)/rpp-cpp/include;$(GitHubJm)/yaml-cpp/include;$(GitHubJm)/jsoncpp/include;$(CorporateSrcPath)/swift/libswift/include</LocalIncludePaths>
 
     <!--You may predefine LocalLibraryPaths here, before it is appended to, but should be as a last resort.-->
     <!--<LocalLibraryPaths>c:/path/to/build/output/Release/x64</LocalLibraryPaths>-->
@@ -33,8 +33,8 @@ create evaluation-time properties based on the content of an itemgroup. See
     <BuildOutputPath_2>$(GitHubJm)/jsoncpp/solution</BuildOutputPath_2>
     <BuildOutputPath_3>$(GitHubJm)/yaml-cpp/vsproj</BuildOutputPath_3>
     <BuildOutputPath_4>$(GitHubJm)/moirai/tests</BuildOutputPath_4>
+    <BuildOutputPath_5>$(CorporateSrcPath)/swift/Solutions/SWIFT</BuildOutputPath_5>
     <!--
-    <BuildOutputPath_5></BuildOutputPath_5>
     <BuildOutputPath_6></BuildOutputPath_6>
     <BuildOutputPath_7></BuildOutputPath_7>
     <BuildOutputPath_8></BuildOutputPath_8>
