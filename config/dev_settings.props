@@ -19,11 +19,11 @@
     <SfslSrcPath>$(CorporateSrcPath)/numerical-sl-cpp</SfslSrcPath>
     <!--Initialize the LocalIncludePaths macro with paths to developement headers, so that they
     appear before stable ones, if any.-->
-    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(CcppInteropSrcPath)/include;$(GitHubJm)/moirai/include;$(GitHubJm)/wila/include;$(CorporateSrcPath)/datatypes/include;$(CorporateSrcPath)/rpp-cpp/include;$(GitHubJm)/yaml-cpp/include;$(GitHubJm)/jsoncpp/include;$(CorporateSrcPath)/swift/libswift/include</LocalIncludePaths>
+    <LocalIncludePaths>$(SfslSrcPath)/math/include;$(SfslSrcPath)/algorithm/include;$(GitHubJm)/config-utils/catch/include;$(CcppInteropSrcPath)/include;$(GitHubJm)/moirai/include;$(GitHubJm)/wila/include;$(CorporateSrcPath)/datatypes/include;$(CorporateSrcPath)/rpp-cpp/include;$(GitHubJm)/yaml-cpp/include;$(GitHubJm)/jsoncpp/include;$(CorporateSrcPath)/swift/libswift/include</LocalIncludePaths>
 
     <!--You may predefine LocalLibraryPaths here, before it is appended to, but should be as a last resort.-->
     <!--<LocalLibraryPaths>c:/path/to/build/output/Release/x64</LocalLibraryPaths>-->
-    
+
     <!--Properties in a PropertyGroup are evaluated first, so we cannot 
 create evaluation-time properties based on the content of an itemgroup. See
   https://msdn.microsoft.com/en-us/library/dd997067.aspx#Property%20and%20Item%20Evaluation%20Order
