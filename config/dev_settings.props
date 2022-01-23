@@ -13,9 +13,11 @@
   </PropertyGroup>
   <!--if you wish to co-develop your project and its dependencies: -->
   <PropertyGroup Condition="'$(DependenciesType)'=='Source'">
-    <GitHubJm>C:/src/github_jm</GitHubJm>
+    <!-- <GitHubJm>C:/src/github_jm</GitHubJm> -->
+    <GitHubJm>C:/src</GitHubJm>
     <CcppInteropSrcPath>$(GitHubJm)/rcpp-interop-commons</CcppInteropSrcPath>
-    <CorporateSrcPath Condition="'$(CorporateSrcPath)'==''">C:/src/csiro/stash</CorporateSrcPath>
+    <!-- <CorporateSrcPath Condition="'$(CorporateSrcPath)'==''">C:/src/csiro/stash</CorporateSrcPath> -->
+    <CorporateSrcPath Condition="'$(CorporateSrcPath)'==''">C:/src</CorporateSrcPath>
     <SfslSrcPath>$(CorporateSrcPath)/numerical-sl-cpp</SfslSrcPath>
     <!--Initialize the LocalIncludePaths macro with paths to developement headers, so that they
     appear before stable ones, if any.-->
