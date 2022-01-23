@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--DependenciesType is a way to switch context in terms of the dependencies against which to compile or link.-->
+    <DependenciesType Condition="'$(DependenciesType)'==''">Source</DependenciesType>
+  </PropertyGroup>
   <ImportGroup Label="DevelopmentContextDefinitions">
     <Import Project="$(USERPROFILE)\dev_settings.props" Condition="exists('$(USERPROFILE)\dev_settings.props')" />
   </ImportGroup>
