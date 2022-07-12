@@ -4,10 +4,11 @@
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
     <!-- The root path where you should have put the header files and binary libraries -->
-    <RootLocalPath>C:/local</RootLocalPath>
+    <RootLocalPath Condition="('$(RootLocalPath)'=='')">C:/local</RootLocalPath>
     <!-- the root paths to the include and compiled shared libraries are derived -->
     <RootLocalIncludePath>$(RootLocalPath)/include</RootLocalIncludePath>
     <RootLocalLibraryPath>$(RootLocalPath)/libs</RootLocalLibraryPath>
-    <RootLocalDevLibraryPath>C:/localdev/libs</RootLocalDevLibraryPath>
+    <RootLocalDevPath Condition="('$(RootLocalDevPath)'=='')">C:/localdev</RootRootLocalDevPathLocalPath>
+    <RootLocalDevLibraryPath>$(RootLocalDevPath)/libs</RootLocalDevLibraryPath>
   </PropertyGroup>
 </Project>
