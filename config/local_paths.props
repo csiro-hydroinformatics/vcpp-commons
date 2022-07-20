@@ -8,7 +8,7 @@
     <!-- the root paths to the include and compiled shared libraries are derived -->
     <RootLocalIncludePath>$(RootLocalPath)/include</RootLocalIncludePath>
     <RootLocalLibraryPath>$(RootLocalPath)/libs</RootLocalLibraryPath>
-    <RootRootLocalDevPathLocalPath Condition="('$(RootLocalDevPath)'=='')">C:/localdev</RootRootLocalDevPathLocalPath>
+    <RootLocalDevPath Condition="('$(RootLocalDevPath)'=='')">C:/localdev</RootLocalDevPath>
     <RootLocalDevLibraryPath>$(RootLocalDevPath)/libs</RootLocalDevLibraryPath>
   </PropertyGroup>
 </Project>
