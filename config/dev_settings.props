@@ -15,7 +15,7 @@
   <PropertyGroup Condition="'$(DependenciesType)'=='Source'">
     <!-- <GitHubJm>C:/src/github_jm</GitHubJm> -->
     <GitHubJm>C:/src</GitHubJm>
-    <CcppInteropSrcPath>$(GitHubJm)/rcpp-interop-commons</CcppInteropSrcPath>
+    <CcppInteropSrcPath>$(GitHubJm)/c-interop</CcppInteropSrcPath>
     <!-- <CorporateSrcPath Condition="'$(CorporateSrcPath)'==''">C:/src/csiro/stash</CorporateSrcPath> -->
     <CorporateSrcPath Condition="'$(CorporateSrcPath)'==''">C:/src</CorporateSrcPath>
     <SfslSrcPath>$(CorporateSrcPath)/numerical-sl-cpp</SfslSrcPath>

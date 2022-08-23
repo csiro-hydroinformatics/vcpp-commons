@@ -11,7 +11,7 @@ if
 in 
 %UserProfile%\dev_settings.props
 or
-C:\src\github_jm\rcpp-interop-commons\include\cinterop\c_cpp_interop.hpp
+C:\src\github_jm\c-interop\include\cinterop\c_cpp_interop.hpp
 if
 <DependenciesType Condition="'$(DependenciesType)'==''">Source</DependenciesType>
 in
