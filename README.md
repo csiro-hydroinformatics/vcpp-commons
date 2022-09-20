@@ -95,4 +95,4 @@ When you change the value of `DependenciesType` you probably need to unload/relo
 
 # Sample
 
-You can find a simple example project file under doc/example, compilable if you also check out the small repository for [C/C++ Interop](https://github.com/jmp75/rcpp-interop-commons)
+You can find a simple example project file under doc/example, compilable if you also check out the small repository for [C/C++ Interop](https://github.com/jmp75/c-interop)
