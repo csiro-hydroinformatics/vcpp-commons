@@ -108,7 +108,8 @@ create evaluation-time properties based on the content of an itemgroup. See
     go in before the full include directory paths -->
     
     <PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>    
-    <AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
+    <!-- NOTE: using things like "$(RootLocalIncludePath)/boost;" should be largely unnecessary, however the unsupported features of Eigen3 seem to necessitate this. -->
+    <AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/eigen3;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
     <LocalIncludePaths Condition="'$(PriorIncludePaths)'==''">$(AddedIncludePaths)</LocalIncludePaths>
     <LocalIncludePaths Condition="'$(PriorIncludePaths)'!=''">$(PriorIncludePaths);$(AddedIncludePaths)</LocalIncludePaths>
 
