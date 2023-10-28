@@ -107,7 +107,7 @@ create evaluation-time properties based on the content of an itemgroup. See
     we favor the inclusion of header files with directory, e.g. netcdf/netcdf.h, so RootLocalIncludePath should 
     go in before the full include directory paths -->
     
-    <PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>    
+    <PriorIncludePaths>$(LocalIncludePaths)</PriorIncludePaths>
     <!-- NOTE: using things like "$(RootLocalIncludePath)/boost;" should be largely unnecessary, however the unsupported features of Eigen3 seem to necessitate this. -->
     <AddedIncludePaths>$(RootLocalIncludePath);$(RootLocalIncludePath)/boost;$(RootLocalIncludePath)/eigen3;$(RootLocalIncludePath)/netcdf;$(RootLocalIncludePath)/catch;$(RootLocalIncludePath)/curl;$(RootLocalIncludePath)/datatypes;$(RootLocalIncludePath)/vld;$(RootLocalIncludePath)/moirai</AddedIncludePaths>
     <LocalIncludePaths Condition="'$(PriorIncludePaths)'==''">$(AddedIncludePaths)</LocalIncludePaths>
