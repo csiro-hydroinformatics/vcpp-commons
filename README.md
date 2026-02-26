@@ -1,13 +1,13 @@
-Configuration and helpers for Visual C++ projects
-=================================================
+# Configuration and helpers for Visual C++ projects
 
 Visual C++ project property files and other material to rationalize path management to header files and libraries when compiling on Windows.
 
 The property sheets address two use cases to develop a C++ codebase, and be able to switch between them fast:
+
 * compile and link against stable releases of dependencies (header files and DLLs)
 * compile and link against checked out sources of dependencies from multiple git repositories (e.g. co-evolution of your project and its dependencies)
 
-# Assumed folder organisation
+## Assumed folder organisation
 
 Linux has some level of file system conventions for managing header files and libraries. Not so for Windows, so we will mimick something similar. The property files herein assume the following folder structure:
 
@@ -34,7 +34,7 @@ c:\local
             netcdf.lib
 ```
 
-# Installing
+## Installing
 
 Copy one or more of the .props files in the config folder to a location of your choice. You can customize some of the props filesl we will explain in a later section. 
 
@@ -67,7 +67,7 @@ and use the the macro variables as shown:
   </ItemDefinitionGroup>
 ```
 
-# Tailoring to your context
+## Tailoring to your context
 
 The file meant to be loaded by project files is `vcpp_config.props`. It loads four other files, by default:
 * dev_settings.props
@@ -93,6 +93,6 @@ In the section for the case where DependenciesType is equal to 'Source' you want
 
 When you change the value of `DependenciesType` you probably need to unload/reload your project(s) or solution in Visual Studio for the new context to take effect.
 
-# Sample
+## Sample
 
 You can find a simple example project file under doc/example, compilable if you also check out the small repository for [C/C++ Interop](https://github.com/jmp75/c-interop)
